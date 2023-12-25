@@ -19,6 +19,14 @@ from .nn import (
 )
 
 
+class MCDropout(nn.Module):
+    def __init__(self, p=0.0):
+        super().__init__()
+        self.p = p
+    def forward(self, inputs):
+        return nn.functional.dropout(inputs, p=self.p, training=True)
+
+
 class AttentionPool2d(nn.Module):
     """
     Adapted from CLIP: https://github.com/openai/CLIP/blob/main/clip/model.py
@@ -206,7 +214,7 @@ class ResBlock(TimestepBlock):
         self.out_layers = nn.Sequential(
             normalization(self.out_channels),
             nn.SiLU(),
-            nn.Dropout(p=dropout),
+            MCDropout(p=dropout),
             zero_module(
                 conv_nd(dims, self.out_channels, self.out_channels, 3, padding=1)
             ),
