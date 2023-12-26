@@ -20,7 +20,7 @@ from .nn import (
 
 
 class MCDropout(nn.Module):
-    def __init__(self, p=0.0):
+    def __init__(self, p=0.1):
         super().__init__()
         self.p = p
     def forward(self, inputs):
@@ -440,7 +440,7 @@ class UNetModel(nn.Module):
         out_channels,
         num_res_blocks,
         attention_resolutions,
-        dropout=0,
+        dropout=0.1,
         channel_mult=(1, 2, 4, 8),
         conv_resample=True,
         dims=2,
@@ -703,7 +703,7 @@ class EncoderUNetModel(nn.Module):
         out_channels,
         num_res_blocks,
         attention_resolutions,
-        dropout=0,
+        dropout=0.1,
         channel_mult=(1, 2, 4, 8),
         conv_resample=True,
         dims=2,
